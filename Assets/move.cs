@@ -8,6 +8,7 @@ using UnityEngine.Timeline;
 public class move : MonoBehaviour
 {
     public Rigidbody2D rb;
+    public Collider2D col;
 
     public bool grounded = false;
     public float jumppower = 10;
@@ -26,6 +27,15 @@ public class move : MonoBehaviour
         if (rb.Cast(new Vector2(0, -1), collisions, 0.01f) > 0)
         {
             grounded = true;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log(collision.otherCollider.tag);
+        if (collision.collider.tag == "hazard") 
+        {
+            gameObject.GetComponent<SpriteRenderer>().color = Color.red;
         }
     }
 }
