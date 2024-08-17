@@ -9,6 +9,7 @@ public class scaleData : MonoBehaviour
     public float minimumScale = .1f;
     public float scaleSpeed = .01f;
     public float scrollSpeed = .01f;
+    public Transform playerpos;
 
     private float originalSpeed;
 
