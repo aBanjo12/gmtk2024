@@ -34,21 +34,6 @@ public class move : MonoBehaviour
 
     void FixedUpdate()
     {
-        
-
-
-
-        if (rb.Cast(new Vector2(0, -1), collisions, 0.1f) > 0 && acceleration < 0)
-        {
-            grounded = true;
-            speed = 0;
-            acceleration = 0;
-        }
-        else
-        {
-            rb.MovePosition(new Vector2(0, speed));
-        }
-        
         if (!grounded)
         {
             acceleration -= gravity;
@@ -68,7 +53,15 @@ public class move : MonoBehaviour
             }
         }
         
-
-        
+        if (rb.Cast(new Vector2(0, -1), collisions, 0.01f) > 0 && acceleration < 0)
+        {
+            grounded = true;
+            speed = 0;
+            acceleration = 0;
+        }
+        else
+        {
+            rb.MovePosition(new Vector2(0, speed));
+        }
     }
 }
