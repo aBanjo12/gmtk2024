@@ -7,7 +7,7 @@ public class HazardSpawnScript : MonoBehaviour
     public GameObject hazard;
 
     float timer = 0;
-    int spawnRate = 1;
+    int spawnRate = 60;
 
     int lowestPoint = 1;
     int highestPoint = 10;
@@ -18,9 +18,9 @@ public class HazardSpawnScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        timer += Time.deltaTime;
+        timer++;
         if (timer > spawnRate)
         {
             SpawnHazard();
