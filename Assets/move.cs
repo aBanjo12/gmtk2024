@@ -27,5 +27,7 @@ public class move : MonoBehaviour
         {
             grounded = true;
         }
+        
+        transform.position = new Vector3(0, transform.position.y, 0);
     }
 }
