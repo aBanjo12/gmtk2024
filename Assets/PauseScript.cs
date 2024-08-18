@@ -4,10 +4,7 @@ using UnityEngine;
 
 public class PauseScript : MonoBehaviour
 {
-    public scaleData background;
-    public scaleData PlatformHolder;
     public GameObject ResumeButton;
-    public GameObject Player;
     bool paused = false;
     // Start is called before the first frame update
     void Start()
@@ -28,7 +25,6 @@ public class PauseScript : MonoBehaviour
             {
                 UnPause();
             }
-            
         }
     }
 

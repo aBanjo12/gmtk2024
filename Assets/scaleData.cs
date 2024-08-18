@@ -32,6 +32,6 @@ public class scaleData : MonoBehaviour
         else if (currentScale > maxScale)
             currentScale = maxScale;
 
-        scrollSpeed = currentScale / originalSpeed;
+        scrollSpeed = currentScale * originalSpeed;
     }
 }
