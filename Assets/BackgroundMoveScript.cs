@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class BackgroundMoveScript : MonoBehaviour
 {
+    Camera cam;
+    public SpriteRenderer background;
+
+    float scaleRatio;
     float startPos = 0;
     float endPos = -19.21f;
     float speed = 0.1f;
@@ -12,6 +16,15 @@ public class BackgroundMoveScript : MonoBehaviour
     void Start()
     {
         transform.position = new Vector3(startPos, 0, 0);
+
+        cam = Camera.main;
+        float unitCamWidth = cam.orthographicSize * 2f * cam.aspect;
+
+        endPos = -unitCamWidth;
+        
+        scaleRatio = unitCamWidth * background.sprite.pixelsPerUnit / background.sprite.texture.width;
+        transform.localScale = new Vector3(scaleRatio, scaleRatio, 1);
+        Debug.Log(background.sprite.texture.width);
     }
 
     // Update is called once per frame
