@@ -7,6 +7,7 @@ using UnityEngine.Timeline;
 
 public class move : MonoBehaviour
 {
+    public scaleData data;
     public Rigidbody2D rb;
     public Collider2D col;
     public CircleCollider2D circleCol;
@@ -15,9 +16,19 @@ public class move : MonoBehaviour
     public float jumppower = 10;
 
     private List<RaycastHit2D> collisions = new();
-    
+
+    private float lastScale;
+
+    private void Start()
+    {
+        lastScale = data.currentScale;
+    }
+
     void FixedUpdate()
     {
+        transform.localScale = new Vector3(data.currentScale, data.currentScale);
+        transform.position += new Vector3(data.scrollSpeed*Time.fixedDeltaTime, grounded && (data.currentScale - lastScale) < 0 ? data.currentScale - lastScale : 0 , 0);
+        lastScale = data.currentScale;
         if (Input.GetKey(KeyCode.Space) && grounded)
         {
             rb.AddForce(new Vector2(0, jumppower), ForceMode2D.Impulse);
@@ -32,8 +43,6 @@ public class move : MonoBehaviour
         {
             gameObject.GetComponent<SpriteRenderer>().color = Color.red;
         }
-        
-        transform.position = new Vector3(0, transform.position.y, 0);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

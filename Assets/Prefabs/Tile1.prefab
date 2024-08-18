@@ -144,6 +144,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 0}
-  x: 5.6000175
+  x: 0.7
   y: 0
   deadzone: -20
