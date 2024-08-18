@@ -15,6 +15,8 @@ public class move : MonoBehaviour
     public bool grounded = false;
     public float jumppower = 10;
 
+    public bool paused = false;
+
     private List<RaycastHit2D> collisions = new();
 
     private float lastScale;
@@ -26,6 +28,7 @@ public class move : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (paused) return;
         transform.localScale = new Vector3(data.currentScale, data.currentScale);
         transform.position += new Vector3(data.scrollSpeed*Time.fixedDeltaTime, grounded && (data.currentScale - lastScale) < 0 ? data.currentScale - lastScale : 0 , 0);
         lastScale = data.currentScale;
@@ -43,6 +46,8 @@ public class move : MonoBehaviour
         {
             gameObject.GetComponent<SpriteRenderer>().color = Color.red;
         }
+        
+        transform.position = new Vector3(0, transform.position.y, 0);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
