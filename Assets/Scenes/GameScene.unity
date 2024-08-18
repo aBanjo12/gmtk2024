@@ -275,6 +275,7 @@ MonoBehaviour:
   minimumScale: 0.1
   scaleSpeed: 0.01
   scrollSpeed: 0.01
+  playerpos: {fileID: 1522613444}
 --- !u!4 &265541181
 Transform:
   m_ObjectHideFlags: 0
