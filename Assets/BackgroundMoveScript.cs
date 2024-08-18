@@ -8,11 +8,13 @@ public class BackgroundMoveScript : MonoBehaviour
     Camera cam;
     public SpriteRenderer background;
     public scaleData scaleData;
+    public float x, y;
 
     float scaleRatio;
     float startPos = 0;
     float endPos;
     float originalBackgroundWidth;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +27,10 @@ public class BackgroundMoveScript : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        x -= scaleData.scrollSpeed;
+        float xscaleratio = transform.localScale.x / transform.localScale.y;
+        transform.localScale = new Vector3(scaleData.currentScale * xscaleratio, scaleData.currentScale, 1);
+        transform.position = new Vector3(x * transform.localScale.x - transform.localScale.x / 2, (y * transform.localScale.y - transform.localScale.y / 2) - scaleData.playerpos.position.y, 0);
         //transform.position = new Vector3 (transform.position.x - 0f, 0, 0);
 
         endPos = -originalBackgroundWidth * scaleData.currentScale;
@@ -39,7 +45,7 @@ public class BackgroundMoveScript : MonoBehaviour
 
         transform.localScale = new Vector3(transform.localScale.x * scaleRatio, transform.localScale.y * scaleRatio, 1);
 
-        Debug.Log(transform.localScale.x + ", " + transform.localScale.y);
+        
     }
 
     void SetInitailScale()

@@ -1,35 +1,67 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Security;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class HazardSpawnScript : MonoBehaviour
 {
-    public GameObject hazard;
+    public GameObject[] platformArray;
+    public Transform platformHolder;
+    public BoxCollider2D collider;
 
-    float timer = 0;
-    int spawnRate = 60;
+    scaleData scaleData;
+    //float platformWidth;
 
-    int lowestPoint = 1;
-    int highestPoint = 10;
+
     // Start is called before the first frame update
     void Start()
     {
-        SpawnHazard();
+        scaleData = platformHolder.GetComponent<scaleData>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        timer++;
-        if (timer > spawnRate)
+
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Last Spawned Platform")
         {
-            SpawnHazard();
-            timer = 0;
+            GameObject platform = collision.gameObject;
+
+
+            float colliderRightX = platform.transform.position.x + GetPlatformWidth(platform) * collision.transform.localScale.x * scaleData.currentScale / 2;
+            float triggerLeftX = gameObject.transform.position.x - collider.size.x / 2;
+
+            
+            //platform.transform.position = new Vector3(platform.transform.position.x + (triggerLeftX - colliderRightX), platform.transform.position.y, platform.transform.position.z);
+
+            Debug.Log(triggerLeftX - colliderRightX);
+            collision.tag = "Untagged";
+
+            SpawnPlatform(triggerLeftX - colliderRightX);
         }
     }
 
-    void SpawnHazard()
+    void SpawnPlatform(float offset)
     {
-        Instantiate(hazard, new Vector3(transform.position.x, Random.Range(lowestPoint, highestPoint), 0), transform.rotation);
+        GameObject platform = platformArray[0];//platformArray[Random.Range(0, platformArray.Length)];
+
+        float halfPlatformWidth = GetPlatformWidth(platform) * platform.transform.localScale.x * scaleData.currentScale / 2;
+        float spawnerLeftX = gameObject.transform.position.x - collider.size.x / 2;
+
+        platform.GetComponent<platformUpdate>().x = (spawnerLeftX + halfPlatformWidth) / scaleData.currentScale;
+        platform.GetComponent<platformUpdate>().y = 0;
+        platform.tag = "Last Spawned Platform";
+        Instantiate(platform, new Vector3(-100, -100, 0), transform.rotation, platformHolder);
+        
+    }
+
+    float GetPlatformWidth(GameObject platform)
+    {
+       return platform.GetComponent<BoxCollider2D>().size.x;
     }
 }

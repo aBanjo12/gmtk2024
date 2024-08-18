@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - hazard
+  - PlatformHolder
+  - Last Spawned Platform
   layers:
   - Default
   - TransparentFX
