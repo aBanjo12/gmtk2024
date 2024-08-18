@@ -37,7 +37,7 @@ public class HazardSpawnScript : MonoBehaviour
             float triggerLeftX = gameObject.transform.position.x - collider.size.x / 2;
 
             
-            //platform.transform.position = new Vector3(platform.transform.position.x + (triggerLeftX - colliderRightX), platform.transform.position.y, platform.transform.position.z);
+            platform.transform.position = new Vector3(platform.transform.position.x + (triggerLeftX - colliderRightX), platform.transform.position.y, platform.transform.position.z);
 
             Debug.Log(triggerLeftX - colliderRightX);
             collision.tag = "Untagged";

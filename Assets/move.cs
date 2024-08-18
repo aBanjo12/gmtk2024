@@ -14,10 +14,13 @@ public class move : MonoBehaviour
     public bool grounded = false;
     public float jumppower = 10;
 
+    public bool paused = false;
+
     private List<RaycastHit2D> collisions = new();
     
     void FixedUpdate()
     {
+        if (paused) return;
         if (Input.GetKey(KeyCode.Space) && grounded)
         {
             rb.AddForce(new Vector2(0, jumppower), ForceMode2D.Impulse);
