@@ -24,7 +24,6 @@ public class BackgroundMoveScript : MonoBehaviour
         
         scaleRatio = unitCamWidth * background.sprite.pixelsPerUnit / background.sprite.texture.width;
         transform.localScale = new Vector3(scaleRatio, scaleRatio, 1);
-        Debug.Log(background.sprite.texture.width);
     }
 
     // Update is called once per frame
