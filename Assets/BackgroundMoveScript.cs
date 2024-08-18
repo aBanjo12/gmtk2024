@@ -11,7 +11,7 @@ public class BackgroundMoveScript : MonoBehaviour
     float scaleRatio;
     float startPos = 0;
     float endPos = -19.21f;
-    float speed = 0.1f;
+    float speed = 0.01f;
     // Start is called before the first frame update
     void Start()
     {
