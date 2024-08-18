@@ -38,7 +38,6 @@ public class move : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log(collision.otherCollider.tag);
         if (collision.collider.CompareTag("hazard")) 
         {
             gameObject.GetComponent<SpriteRenderer>().color = Color.red;

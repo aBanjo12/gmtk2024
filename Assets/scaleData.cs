@@ -6,30 +6,31 @@ using UnityEngine;
 public class scaleData : MonoBehaviour
 {
     public float currentScale = 1f;
-    public float minimumScale = .1f;
-    public float scaleSpeed = .01f;
-    public float scrollSpeed = .01f;
+    public float minScale;
+    public float maxScale;
+    public float scaleSpeed;
+    public float scrollSpeed;
     public Transform playerpos;
 
     private float originalSpeed;
 
     private void Start()
     {
-        originalSpeed = scaleSpeed;
-        
+        originalSpeed = scrollSpeed;
     }
 
     // Start is called before the first frame update
     private void FixedUpdate()
     {
-        float toScale = 0;
         if (Input.GetKey(KeyCode.W))
-            toScale += scaleSpeed;
+            currentScale /= 0.9f;
         if (Input.GetKey(KeyCode.S))
-            toScale -= scaleSpeed;
+            currentScale *= 0.9f;
 
-        if (currentScale + toScale >= minimumScale)
-            currentScale += toScale;
+        if (currentScale < minScale)
+            currentScale = minScale;
+        else if (currentScale > maxScale)
+            currentScale = maxScale;
 
         scrollSpeed = originalSpeed / currentScale;
     }
