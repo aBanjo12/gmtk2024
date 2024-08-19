@@ -41,7 +41,7 @@ public class BackgroundMoveScript : MonoBehaviour
         {
             float newPos = startPos - (endPos - transform.position.x);
             newPos %= endPos;
-            transform.position = new Vector3(newPos, transform.position.y, 0);
+            transform.position = new Vector3(newPos, transform.position.y, transform.position.z);
         }
     }
 
