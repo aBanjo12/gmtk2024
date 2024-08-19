@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Timeline;
@@ -12,10 +13,16 @@ public class move : MonoBehaviour
     public Collider2D col;
     public CircleCollider2D circleCol;
 
+    public TextMeshProUGUI GameOverText;
+    public GameObject RetryButton;
+    public GameObject Score;
+    public GameObject PlatformHolder;
+    public GameObject Background;
+
     public bool grounded = false;
     public float jumppower = 10;
 
-    public bool paused = false;
+    public bool dead = false;
 
     private List<RaycastHit2D> collisions = new();
 
@@ -28,7 +35,7 @@ public class move : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (paused) return;
+        if (dead) return;
         transform.localScale = new Vector3(data.currentScale, data.currentScale);
         transform.position += new Vector3(data.scrollSpeed*Time.fixedDeltaTime, grounded && (data.currentScale - lastScale) < 0 ? data.currentScale - lastScale : 0 , 0);
         lastScale = data.currentScale;
@@ -49,12 +56,31 @@ public class move : MonoBehaviour
         
         transform.position = new Vector3(0, transform.position.y, 0);
     }
-
+    
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("hazard")) 
+        if (collision.collider.CompareTag("hazard") && !dead) 
         {
             gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+            EndGame();
         }
+    }
+
+    void EndGame()
+    {
+        string scoreStr = Score.GetComponent<TextMeshProUGUI>().text;
+        GameOverText.text = "Game Over! \n" + scoreStr;
+
+        Debug.Log(GameOverText.text);
+        RetryButton.SetActive(true);
+        Score.SetActive(false);
+
+        PlatformHolder.GetComponent<scaleData>().scrollSpeed = 0;
+        PlatformHolder.GetComponent<scaleData>().enabled = false;
+
+        Background.GetComponent<scaleData>().scrollSpeed = 0;
+        Background.GetComponent<scaleData>().enabled = false;
+
+        dead = true;
     }
 }
