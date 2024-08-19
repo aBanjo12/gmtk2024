@@ -7,8 +7,11 @@ public class BackgroundMoveScript : MonoBehaviour
 {
     Camera cam;
     public SpriteRenderer background;
-    public scaleData scaleData;
-    public float x, y;
+    public scaleData data;
+    public float scrollSpeedRatio = 0.5f;
+    public float startY;
+    public bool useInitialScaleSetter = false;
+    
 
     float scaleRatio;
     float startPos = 0;
@@ -19,15 +22,19 @@ public class BackgroundMoveScript : MonoBehaviour
     void Start()
     {
         cam = Camera.main;
-        transform.position = new Vector3(startPos, transform.position.y, transform.position.z);
-
-        SetInitailScale();
+        transform.position = new Vector3(startPos, startY, 5);
+        if (useInitialScaleSetter)
+            SetInitailScale();
+        else
+        {
+            originalBackgroundWidth = 8 * background.sprite.texture.width / background.sprite.pixelsPerUnit;
+        }
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        transform.position = new Vector3(transform.position.x - scaleData.scrollSpeed, transform.position.y, transform.position.z);
+        transform.position = new Vector3(transform.position.x - data.scrollSpeed * scrollSpeedRatio, transform.position.y, transform.position.z);
 
         endPos = -originalBackgroundWidth;
 
