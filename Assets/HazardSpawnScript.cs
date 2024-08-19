@@ -53,8 +53,8 @@ public class HazardSpawnScript : MonoBehaviour
         float halfPlatformWidth = GetPlatformWidth(platform) * platform.transform.localScale.x * scaleData.currentScale / 2;
         float spawnerLeftX = gameObject.transform.position.x - collider.size.x / 2;
 
-        platform.GetComponent<platformUpdate>().x = (spawnerLeftX + halfPlatformWidth) / scaleData.currentScale;
-        platform.GetComponent<platformUpdate>().y = 0;
+        //platform.GetComponent<platformUpdate>().x = (spawnerLeftX + halfPlatformWidth) / scaleData.currentScale;
+        //platform.GetComponent<platformUpdate>().y = 0;
         platform.tag = "Last Spawned Platform";
         Instantiate(platform, new Vector3(-100, -100, 0), transform.rotation, platformHolder);
         

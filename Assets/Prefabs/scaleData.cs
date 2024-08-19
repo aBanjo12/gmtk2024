@@ -23,9 +23,9 @@ public class scaleData : MonoBehaviour
     private void FixedUpdate()
     {
         if (Input.GetKey(KeyCode.W))
-            currentScale /= 0.9f;
+            currentScale /= scaleSpeed;
         if (Input.GetKey(KeyCode.S))
-            currentScale *= 0.9f;
+            currentScale *= scaleSpeed;
 
         if (currentScale < minScale)
             currentScale = minScale;

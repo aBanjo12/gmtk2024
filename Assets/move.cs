@@ -15,22 +15,23 @@ public class move : MonoBehaviour
     public bool grounded = false;
     public float jumppower = 10;
 
-    public bool paused = false;
-
     private List<RaycastHit2D> collisions = new();
 
+    private float lastScale;
 
     private void Start()
     {
+        lastScale = data.currentScale;
     }
 
     void FixedUpdate()
     {
-        if (paused) return;
         transform.localScale = new Vector3(data.currentScale, data.currentScale);
+        transform.position += new Vector3(0, grounded && (data.currentScale - lastScale) < 0 ? data.currentScale - lastScale : 0 , 0);
+        lastScale = data.currentScale;
         if (Input.GetKey(KeyCode.Space) && grounded)
         {
-            rb.AddForce(new Vector2(0, jumppower), ForceMode2D.Impulse);
+            rb.AddForce(new Vector2(0, jumppower * data.currentScale), ForceMode2D.Impulse);
             grounded = false;
         }
         
@@ -42,7 +43,7 @@ public class move : MonoBehaviour
         {
             gameObject.GetComponent<SpriteRenderer>().color = Color.red;
         }
-        }
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
