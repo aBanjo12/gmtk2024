@@ -19,7 +19,7 @@ public class BackgroundMoveScript : MonoBehaviour
     void Start()
     {
         cam = Camera.main;
-        transform.position = new Vector3(startPos, 0, 0);
+        transform.position = new Vector3(startPos, transform.position.y, transform.position.z);
 
         SetInitailScale();
     }
@@ -36,7 +36,7 @@ public class BackgroundMoveScript : MonoBehaviour
         {
             float newPos = startPos - (endPos - transform.position.x);
             newPos %= endPos;
-            transform.position = new Vector3(newPos, transform.position.y, 0);
+            transform.position = new Vector3(newPos, transform.position.y, transform.position.z);
         }
     }
 
